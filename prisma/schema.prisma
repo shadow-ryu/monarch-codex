@@ -14,11 +14,42 @@ datasource db {
 }
 
 model User {
-  id           String   @id
-  firstname    String
-  lastname     String
-  profileImage String
-  created_at   BigInt
-  username     String   @unique
-  updated_at   BigInt
+  id                   String             @id
+  firstname            String
+  lastname             String
+  profileImage         String
+  aboutMe              String? // Optional field
+  gameUsername         String             @unique // Unique and defaults to username
+  created_at           BigInt
+  username             String             @unique
+  updated_at           BigInt
+  githubInstallationId String?
+  github               Boolean            @default(false)
+  githubID             BigInt?
+  repositories         GithubRepository[]
+}
+
+model GithubRepository {
+  id          String   @id
+  userId      String // Foreign key to User
+  name        String // Repository name without owner (e.g., "my-project")
+  fullName    String // Full repository name with owner (e.g., "username/my-project")
+  nodeId      String   @unique // GitHub's GraphQL Node ID
+  visibility  String // "public" or "private"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isArchived  Boolean  @default(false)
+  isActive  Boolean  @default(false)
+  description String? // Optional repository description
+  language    String? // Primary programming language
+  stars       Int      @default(0)
+  forks       Int      @default(0)
+  url         String // Repository URL
+
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, name]) // Ensure user can't have duplicate repo names
+  // Make fullName unique across all repositories
+  @@unique([fullName])
+  @@index([userId])
 }
