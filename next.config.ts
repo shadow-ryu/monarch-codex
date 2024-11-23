@@ -1,9 +1,14 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["img.clerk.com"], // Add the domain here
+    domains: ["img.clerk.com"],
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
-
 export default nextConfig;

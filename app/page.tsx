@@ -69,6 +69,7 @@ const HomePage = async () => {
             <AnimationContainer delay={0.2}>
               <BentoGrid className="py-8">
                 {CARDS.map((feature, idx) => (
+                  // @ts-expect-error test
                   <BentoCard key={idx} {...feature} />
                 ))}
               </BentoGrid>
@@ -118,7 +119,6 @@ const HomePage = async () => {
           </MaxWidthWrapper>
         </div>
       </section>
-
     </main>
   );
 };

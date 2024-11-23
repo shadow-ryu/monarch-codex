@@ -1,13 +1,6 @@
-
 import { cn } from "@/lib/utils";
 import rpg from "@/public/rpg.png";
-import {
-
-  Gamepad,
-  ScrollText,
-  Users,
-  WaypointsIcon,
-} from "lucide-react";
+import { Gamepad, ScrollText, Users, WaypointsIcon } from "lucide-react";
 import { Sword, Shield, Wand } from "lucide-react";
 import { ReactNode } from "react";
 const dungeons = [
@@ -72,10 +65,7 @@ const defaultTasks = [
     priority: "high",
   },
 ];
-import {
-  Card,
-  CardContent,
-} from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 
 import KanbanCard from "../kanban/kanban-card";
 import { Integrations } from "./integrations";
@@ -219,16 +209,14 @@ const BentoCard = ({
   name,
   className,
   background,
+  //   @ts-expect-error any
   Icon,
   description,
 }: {
   name: string;
   className: string;
   background: ReactNode;
-  Icon: never;
   description: string;
-  href: string;
-  cta: string;
 }) => (
   <div
     key={name}

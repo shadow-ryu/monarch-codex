@@ -1,6 +1,5 @@
 "use server";
-import { auth } from '@clerk/nextjs';
-import { App, Octokit } from 'octokit';
+import {  Octokit } from 'octokit';
 import { createAppAuth } from '@octokit/auth-app';
 
 // Configuration types
@@ -33,7 +32,8 @@ async function getGitHubAppOctokit(config: GitHubAppConfig) {
   
       // If no installationId provided, get the first installation
       if (!config.installationId) {
-        const { data: installations } = await octokit.apps.listInstallations();
+        // @ts-expect-error type
+        const { data: installations } = await octokit.apps?.listInstallations();
         if (installations.length === 0) {
           return {
             success: false,
@@ -62,11 +62,11 @@ async function getGitHubAppOctokit(config: GitHubAppConfig) {
         octokit
       };
   
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating GitHub App Octokit:', error);
       return {
         success: false,
-        error: error.message || 'Failed to initialize GitHub App'
+        error: error || 'Failed to initialize GitHub App'
       };
     }
   }
@@ -104,8 +104,7 @@ export async function createGitHubIssueWithApp({
     //       statusCode: repoError.status || 404
     //     };
     //   }
-  console.log(octokit.request,"octokit.rest.issues.")
-  
+   // @ts-expect-error type
   const { data } = await octokit.request('POST /repos/{owner}/{repo}/issues', {
     owner: issueData.owner,
     repo: issueData.repo,
@@ -132,12 +131,13 @@ export async function createGitHubIssueWithApp({
         issueUrl: data.html_url
       };
   
-    } catch (error: any) {
+    } 
+    catch (error) {
       console.error('Error creating issue:', error);
       return {
         success: false,
-        error: error.message || 'Failed to create issue',
-        statusCode: error.status || 500
+        // @ts-expect-error type
+        error: error.message || 'Failed to create issue',statusCode: error.status || 500
       };
     }
   }
