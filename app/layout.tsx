@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import { ReactQueryProvider } from "@/query/provider";
+import { Sword } from "lucide-react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,13 +29,26 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" className="dark">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <ReactQueryProvider>{children}</ReactQueryProvider>
           <Toaster />
         </body>
+        <footer className="border-t border-slate-200 dark:border-slate-700">
+          <div className="container mx-auto px-6 py-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <Sword className="w-6 h-6 text-purple-600" />
+                <span className="font-bold text-white">CodeWorld</span>
+              </div>
+              <p className="text-slate-600 dark:text-slate-400">
+                © 2024 CodeWorld. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </footer>
       </html>
     </ClerkProvider>
   );
