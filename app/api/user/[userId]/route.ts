@@ -1,41 +1,34 @@
-// /app/api/user/[userId]/route.ts
 import { client } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import superjson from "superjson";
 
 export async function GET(
   request: Request,
   { params }: { params: { userId: string } }
 ) {
-  const { userId } = await params;
+  const { userId } = params;
+
+  // Validate userId
+  if (!/^\d+$/.test(userId)) {
+    return NextResponse.json({ error: "Invalid userId format" }, { status: 400 });
+  }
 
   try {
-    // Fetch user data based on userId
     const userData = await client.user.findFirst({
-      where: {
-        id: userId,
-      },
+      where: { id: userId },
     });
-console.log(userData,"userData")
+
     if (!userData) {
-      // If no user found, return 404
-      return NextResponse.json(
-        { message: "User not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    // Convert BigInt to string to make it JSON serializable
-    const serializedUserData = JSON.parse(
-      JSON.stringify(userData, (key, value) =>
-        typeof value === "bigint" ? value.toString() : value
-      )
-    );
+    // Serialize user data
+    const serializedUserData = superjson.serialize(userData).json;
 
-    // Return user data
     return NextResponse.json(serializedUserData, { status: 200 });
   } catch (error) {
-    // Return error response in case of failure
-    console.error(error); // Log the error for debugging
+    console.error("Error fetching user data:", error);
+
     return NextResponse.json(
       { error: "An error occurred while fetching user data" },
       { status: 500 }
