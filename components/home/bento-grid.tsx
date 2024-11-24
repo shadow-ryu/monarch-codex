@@ -95,8 +95,13 @@ export const CARDS = [
 
     className: "col-span-3 lg:col-span-2",
     background: (
-      <Card className="absolute top-10  w-[90%] left-10 origin-top transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_0%,#000_100%)] group-hover:scale-105 border border-border border-r-0">
-        <CardContent className="mt-4 flex flex-col gap-4 ">
+      <Card
+        className="absolute top-10 w-[90%] left-10 origin-top transition-all duration-300 ease-out 
+                   group-hover:scale-105 border border-border border-r-0 
+                   backdrop-blur-lg [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_100%)] 
+                   [-webkit-mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_100%)]"
+      >
+        <CardContent className="mt-4 flex flex-col gap-4">
           {dungeons.map((dungeon) => (
             <div key={dungeon.name} className="bg-[#1E1E1E] rounded-lg p-4">
               <div className="flex items-start justify-between mb-4">
@@ -127,10 +132,12 @@ export const CARDS = [
                 </div>
                 <div className="flex -space-x-2">
                   {dungeon.contributors.map((avatar, i) => (
-                    <img
+                    <Image
                       key={i}
                       src={avatar}
                       alt="Contributor"
+                      width={'32'}
+                      height={'32'}
                       className="w-8 h-8 rounded-full border-2 border-[#1E1E1E]"
                     />
                   ))}
@@ -145,10 +152,11 @@ export const CARDS = [
                 </div>
                 <div className="h-2 bg-[#2A2356] rounded-full">
                   <div
-                    className="h-full rounded-full transition-all duration-500"
+                    className={`h-full rounded-full transition-all duration-500 group-hover:opacity-10 `}
                     style={{
                       width: `${dungeon.progress}%`,
                       backgroundColor: dungeon.color,
+                      opacity:0.3,
                     }}
                   ></div>
                 </div>
@@ -205,36 +213,5 @@ const BentoGrid = ({
   );
 };
 
-const BentoCard = ({
-  name,
-  className,
-  background,
-  //   @ts-expect-error any
-  Icon,
-  description,
-}: {
-  name: string;
-  className: string;
-  background: ReactNode;
-  description: string;
-}) => (
-  <div
-    key={name}
-    className={cn(
-      "group relative col-span-3 flex flex-col justify-between border border-border/60 overflow-hidden rounded-xl",
-      "bg-black [box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
-      className
-    )}
-  >
-    <div>{background}</div>
-    <div className="pointer-events-none z-10 flex flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10">
-      <Icon className="h-12 w-12 origin-left text-neutral-700 transition-all duration-300 ease-in-out group-hover:scale-75" />
-      <h3 className="text-xl font-semibold text-neutral-300">{name}</h3>
-      <p className="max-w-lg text-neutral-400">{description}</p>
-    </div>
 
-    <div className="pointer-events-none absolute inset-0 transition-all duration-300 group-hover:bg-black/[.03] group-hover:dark:bg-neutral-800/10" />
-  </div>
-);
-
-export { BentoCard, BentoGrid };
+export default BentoGrid

@@ -1,5 +1,6 @@
 import AnimationContainer from "@/components/home/animation-container";
-import { BentoCard, BentoGrid, CARDS } from "@/components/home/bento-grid";
+import BentoCard from "@/components/home/bento-card";
+import BentoGrid,{CARDS } from "@/components/home/bento-grid";
 import MagicBadge from "@/components/home/magic-badge";
 import MagicCard from "@/components/home/magic-card";
 import MaxWidthWrapper from "@/components/home/max-width-wrapper";
@@ -69,7 +70,6 @@ const HomePage = async () => {
             <AnimationContainer delay={0.2}>
               <BentoGrid className="py-8">
                 {CARDS.map((feature, idx) => (
-                  // @ts-expect-error test
                   <BentoCard key={idx} {...feature} />
                 ))}
               </BentoGrid>
