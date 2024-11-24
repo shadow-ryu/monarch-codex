@@ -35,20 +35,22 @@ export default function RootLayout({
         >
           <ReactQueryProvider>{children}</ReactQueryProvider>
           <Toaster />
-        </body>
-        <footer className="border-t border-slate-200 dark:border-slate-700">
-          <div className="container mx-auto px-6 py-8">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Sword className="w-6 h-6 text-purple-600" />
-                <span className="font-bold text-white">CodeWorld</span>
+          <footer className="border-t border-slate-200 dark:border-slate-700">
+            <div className="container mx-auto px-6 py-8">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Sword className="w-6 h-6 text-purple-600" />
+                  <span className="font-bold text-white">
+                    Dev <i>Saga</i>.
+                  </span>
+                </div>
+                <p className="text-slate-600 dark:text-slate-400">
+                  © 2024 Dev <i>Saga</i>. All rights reserved.
+                </p>
               </div>
-              <p className="text-slate-600 dark:text-slate-400">
-                © 2024 CodeWorld. All rights reserved.
-              </p>
             </div>
-          </div>
-        </footer>
+          </footer>
+        </body>
       </html>
     </ClerkProvider>
   );

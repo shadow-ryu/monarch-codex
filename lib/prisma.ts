@@ -1,10 +1,18 @@
 /* eslint-disable no-var */
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client";
 
+// Augment the global object type to include Prisma
 declare global {
-  var prisma: PrismaClient | undefined
+  // Explicitly declare the 'prisma' property on the global object
+  var prisma: PrismaClient | undefined;
 }
 
-export const client = globalThis.prisma || new PrismaClient()
+// Create a Prisma client or reuse the existing one
+export const client = global.prisma || new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'], // Enable logging for Prisma queries in development
+});
 
-if (process.env.NODE_ENV !== "production") globalThis.prisma = client
+// Assign the client to the global object in non-production environments
+if (process.env.NODE_ENV !== "production") {
+  global.prisma = client;
+}
