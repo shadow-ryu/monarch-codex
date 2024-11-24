@@ -19,7 +19,7 @@ const HomePage = async () => {
   return (
     <main className="flex items-center justify-center flex-col">
       <Navbar />
-      <section className=" w-full  bg-neutral-950 rounded-md mt-[5rem]  !overflow-visible relative flex flex-col items-center  antialiased">
+      <section className=" w-full  bg-[#0c0d12] rounded-md mt-[5rem]  !overflow-visible relative flex flex-col items-center  antialiased">
         <div className="overflow-x-hidden scrollbar-hide size-full h-full ">
           {/* Hero Section */}
           <MaxWidthWrapper>
@@ -85,8 +85,7 @@ const HomePage = async () => {
                   Effortless link management in {PROCESS.length} steps
                 </h2>
                 <p className="mt-4 text-center lg:text-center text-lg text-muted-foreground max-w-lg">
-                  Follow these simple steps to optimize, organize, and share
-                  your links with ease.
+                Transform your coding journey into an adventure with these simple steps.
                 </p>
               </div>
             </AnimationContainer>
